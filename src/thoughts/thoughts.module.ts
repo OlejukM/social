@@ -7,7 +7,7 @@ import { ThoughtModel } from 'src/schemas/createThought.schema';
 @Module({
   providers: [ThoughtsService],
   controllers: [ThoughtsController],
-  exports: [ThoughtsModule],
-  imports: [ThoughtsModule, MongooseModule.forFeature([{name: ThoughtModel.name, schema: ThoughtModel.schema}])]
+  // exports: [ThoughtsModule],
+  imports: [MongooseModule.forFeature([{name: ThoughtModel.name, schema: ThoughtModel.schema}])]
 })
 export class ThoughtsModule {}

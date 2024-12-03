@@ -1,12 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { CreateThougthDto } from 'src/dtos/CreateThoughtDto';
+import { Controller, Get, Post, Body, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ThoughtsService } from './thoughts.service';
+import { CreateThoughtDto  } from 'src/dtos/CreateThoughtDto';
 
 @Controller('thoughts')
 export class ThoughtsController {
-    constructor(private thoughtService: ThoughtsService) { }
+    constructor(private thoughtService: ThoughtsService) {}
+
     @Post()
-    createThoughts(@Body() createThoughts: CreateThougthDto) {
+    @UsePipes(new ValidationPipe())
+    createThoughts(@Body() createThoughts: CreateThoughtDto ) {
         return this.thoughtService.createThoughts(createThoughts);
     }
 

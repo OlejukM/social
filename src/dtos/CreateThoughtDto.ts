@@ -1,6 +1,6 @@
 import { IsArray, IsNotEmpty, IsOptional } from "class-validator";
 
-export class CreateThougthDto {
+export class CreateThoughtDto {
     @IsNotEmpty()
     text: string;
 

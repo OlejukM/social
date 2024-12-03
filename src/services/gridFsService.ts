@@ -13,6 +13,9 @@ export class GridFSImageStrategyService implements BucketStrategyService {
     }
 
     async saveImages(file: Express.Multer.File): Promise<string> {
+        if (!file || !file.buffer) {
+            throw new Error('Invalid file');
+        }
         const uploadStream = this.bucket.openUploadStream(file.originalname);
         uploadStream.end(file.buffer);
         console.log(this.bucket);
@@ -23,14 +26,15 @@ export class GridFSImageStrategyService implements BucketStrategyService {
         })
     }
 
-    async getImages(): Promise<any[]> {
+    async getImages(): Promise<GridFSFile[]> {
         const files: GridFSFile[] = await this.bucket.find({}).toArray();
         const images = files.map(file => ({
             id: file._id,
             filename: file.filename,
             downloadUrl: `${process.env.DB_URL}/collage/image/${file._id}`,
-        }))
+        }));
 
+        //@ts-ignore
         return images;
     }
 
