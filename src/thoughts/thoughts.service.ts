@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { IThought, ThoughtModel } from '../schemas/createThought.schema';
+import { Thought } from '../schemas/createThought.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateThoughtDto } from 'src/dtos/CreateThoughtDto';
 
 @Injectable()
 export class ThoughtsService {
-    constructor(@InjectModel(ThoughtModel.name) private thoughtModel: Model<IThought>) { }
-    async createThoughts(thought: CreateThoughtDto): Promise<IThought> {
+    constructor(@InjectModel(Thought.name) private thoughtModel: Model<Thought>) { }
+    async createThoughts(thought: CreateThoughtDto): Promise<Thought> {
         const newThought = new this.thoughtModel(thought);
 
         return await newThought.save();
     }
 
-    async getThoughts(): Promise<IThought[]> {
+    async getThoughts(): Promise<Thought[]> {
         return await this.thoughtModel.find().exec();
     }
 }

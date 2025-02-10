@@ -10,7 +10,7 @@ import { SignupModule } from './sign-up/signup.module';
 dotenv.config();
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.DB_CONNECTION_URL), CollageModule, ThoughtsModule, SignupModule],
+  imports: [MongooseModule.forRoot('mongodb+srv://social:social@cluster0.v57dz.mongodb.net/'), CollageModule, ThoughtsModule, SignupModule],
   controllers: [AppController],
   providers: [AppService],
 })

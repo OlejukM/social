@@ -1,4 +1,6 @@
-import { model, Schema, Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+
 
 export interface IThought extends Document {
     text: string;
@@ -6,15 +8,14 @@ export interface IThought extends Document {
     comments: string[];
 }
 
-export const PostThoughtSchema = new Schema<IThought> ({
-    text: { type: String, required: true},
-    likes: { type: [String], default: []},
-    comments: { type: [String], default: [] }
-},
-{
-    timestamps: true,
-    collection: 'thoughts',
+@Schema()
+export class Thought extends Document {
+    @Prop({ required: true })
+    text: string
+    @Prop({ default: [] })
+    likes: string[]
+    @Prop({ default: [] })
+    comments: string[]
 }
-)
 
-export const ThoughtModel = model<IThought>('Thought', PostThoughtSchema);
+export const ThoughtSchema = SchemaFactory.createForClass(Thought);

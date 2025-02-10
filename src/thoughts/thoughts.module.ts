@@ -2,12 +2,11 @@ import { Module } from '@nestjs/common';
 import { ThoughtsService } from './thoughts.service';
 import { ThoughtsController } from './thoughts.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ThoughtModel } from 'src/schemas/createThought.schema';
+import { Thought, ThoughtSchema } from '../schemas/createThought.schema';
 
 @Module({
   providers: [ThoughtsService],
   controllers: [ThoughtsController],
-  // exports: [ThoughtsModule],
-  imports: [MongooseModule.forFeature([{name: ThoughtModel.name, schema: ThoughtModel.schema}])]
+  imports: [MongooseModule.forFeature([{name: Thought.name, schema: ThoughtSchema}])]
 })
 export class ThoughtsModule {}
